@@ -1,1 +1,0 @@
-print("Hello, World from Jenkins!\n By Kamal")
