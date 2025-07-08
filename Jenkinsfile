@@ -11,15 +11,15 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    dockerImage = docker.build("my-python-image")
+                    def dockerImage = docker.build("my-python-image")
                 }
             }
         }
 
-        stage('Run in Docker') {
+        stage('Run Docker Container') {
             steps {
                 script {
-                    dockerImage.run()
+                    docker.image("my-python-image").run()
                 }
             }
         }
