@@ -11,7 +11,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    def dockerImage = docker.build("my-python-image")
+                    def dockerImage = docker.build("kamal-python-image")
                 }
             }
         }
@@ -19,7 +19,7 @@ pipeline {
         stage('Run Docker Container') {
             steps {
                 script {
-                    docker.image("my-python-image").run()
+                    docker.image("kamal-python-image").run()
                 }
             }
         }
