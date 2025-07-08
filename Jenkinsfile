@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/your-username/my-python-app.git'
+                git branch: 'main', credentialsId: 'github-pat', url: 'https://github.com/kamalnanda21/Python-Devops.git'
             }
         }
 
