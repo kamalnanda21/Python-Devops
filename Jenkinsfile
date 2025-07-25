@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    environment {
+        IMAGE_NAME = "kamal-python-app-image"
+        IMAGE_TAG = "${BUILD_NUMBER}"
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -11,7 +16,9 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    def dockerImage = docker.build("kamal-python-image")
+                    def fullImageName = "${IMAGE_NAME}:${IMAGE_TAG}"
+                    echo "Building Docker image: ${fullImageName}"
+                    docker.build(fullImageName)
                 }
             }
         }
@@ -19,7 +26,9 @@ pipeline {
         stage('Run Docker Container') {
             steps {
                 script {
-                    docker.image("kamal-python-image").run()
+                    def fullImageName = "${IMAGE_NAME}:${IMAGE_TAG}"
+                    echo "Running Docker image: ${fullImageName}"
+                    docker.image(fullImageName).run()
                 }
             }
         }
