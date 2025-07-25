@@ -4,6 +4,9 @@ pipeline {
     environment {
         IMAGE_NAME = "kamal-python-app-image"
         IMAGE_TAG = "${BUILD_NUMBER}"
+        CONTAINER_NAME = "kamal-python-container"
+        HOST_PORT = "3333"
+        CONTAINER_PORT = "5000"
     }
 
     stages {
@@ -27,8 +30,13 @@ pipeline {
             steps {
                 script {
                     def fullImageName = "${IMAGE_NAME}:${IMAGE_TAG}"
-                    echo "Running Docker image: ${fullImageName}"
-                    docker.image(fullImageName).run()
+                    echo "Running Docker container: ${CONTAINER_NAME} from image: ${fullImageName}"
+
+                    // Stop and remove existing container with the same name
+                    sh """
+                        docker rm -f ${CONTAINER_NAME} || true
+                        docker run -d --name ${CONTAINER_NAME} -p ${HOST_PORT}:${CONTAINER_PORT} ${fullImageName}
+                    """
                 }
             }
         }
