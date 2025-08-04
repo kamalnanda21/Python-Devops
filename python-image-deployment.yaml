@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kamal-python-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kamal-python-app
+  template:
+    metadata:
+      labels:
+        app: kamal-python-app
+    spec:
+      containers:
+        - name: kamal-python-container
+          image: kamal-python-app-image:4
+          ports:
+            - containerPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kamal-python-service
+spec:
+  selector:
+    app: kamal-python-app
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 5000        # Port exposed by the service inside the cluster
+      targetPort: 5000  # Container's internal port
+      nodePort: 3333    # Optional: external access port on the node
