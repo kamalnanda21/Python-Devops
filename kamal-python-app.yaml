@@ -15,6 +15,7 @@ spec:
       containers:
         - name: kamal-python-container
           image: kamal-python-app-image:latest
+          imagePullPolicy: Never # for local development of the image
           ports:
             - containerPort: 5000
 ---
