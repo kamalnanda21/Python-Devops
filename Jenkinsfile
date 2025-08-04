@@ -3,7 +3,6 @@ pipeline {
 
     environment {
         IMAGE_NAME = "kamal-python-app-image"
-        IMAGE_TAG = "${BUILD_NUMBER}"
         CONTAINER_NAME = "kamal-python-container"
         HOST_PORT = "3333"
         CONTAINER_PORT = "5000"
@@ -19,7 +18,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    def fullImageName = "${IMAGE_NAME}:${IMAGE_TAG}"
+                    def fullImageName = "${IMAGE_NAME}"  // No tag means default is ":latest"
                     echo "Building Docker image: ${fullImageName}"
                     docker.build(fullImageName)
                 }
@@ -29,7 +28,7 @@ pipeline {
         stage('Run Docker Container') {
             steps {
                 script {
-                    def fullImageName = "${IMAGE_NAME}:${IMAGE_TAG}"
+                    def fullImageName = "${IMAGE_NAME}"  // No tag used
                     echo "Running Docker container: ${CONTAINER_NAME} from image: ${fullImageName}"
 
                     // Stop and remove existing container with the same name
