@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: kamal-python-container
-          image: kamal-python-app-image:4
+          image: kamal-python-app-image:latest
           ports:
             - containerPort: 5000
 ---
