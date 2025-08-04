@@ -25,9 +25,8 @@ metadata:
 spec:
   selector:
     app: kamal-python-app
-  type: NodePort
+  type: LoadBalancer
   ports:
     - protocol: TCP
       port: 5000        # Port exposed by the service inside the cluster
-      targetPort: 5000  # Container's internal port
-      nodePort: 3333    # Optional: external access port on the node
+      targetPort: 5000  # Port in the container
